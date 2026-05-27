@@ -23,4 +23,5 @@ class AppColors {
   static const Color success = Color(0xFF68E36E);
   static const Color warning = Color(0xFFFFC94A);
   static const Color error = Color(0xFFFF7272);
+  static const Color letters = Color.fromARGB(255, 69, 69, 69);
 }

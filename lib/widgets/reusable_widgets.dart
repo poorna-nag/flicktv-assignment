@@ -6,7 +6,6 @@ import 'custom_card.dart';
 
 export 'custom_button.dart';
 export 'custom_card.dart';
-export 'custom_text.dart';
 
 class BenefitTile extends StatelessWidget {
   const BenefitTile({
@@ -110,28 +109,32 @@ class QuickPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomCard(
-      // color: selected ? AppColors.accent : AppColors.surfaceElevated,
-      borderRadius: 18,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Icon(
-            icon,
-            size: 18,
-            color: selected ? Colors.white : AppColors.textPrimary,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: TextStyle(
-              color: selected ? Colors.white : AppColors.textPrimary,
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
+    return GestureDetector(
+      onTap: onTap,
+      child: CustomCard(
+        borderRadius: 16,
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              icon,
+              color: selected ? AppColors.accentSoft : AppColors.textMuted,
+              size: 28,
             ),
-          ),
-        ],
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(
+                color: selected
+                    ? AppColors.textPrimary
+                    : AppColors.textSecondary,
+                fontSize: 12,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,7 +5,6 @@ import '../core/constants/app_colors.dart';
 import '../core/constants/app_dimensions.dart';
 import '../core/constants/app_strings.dart';
 import '../core/widgets/app_background.dart';
-import '../core/widgets/app_section_header.dart';
 import '../widgets/reusable_widgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -76,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen>
                       width: 56,
                       height: 5,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.12),
+                        color: Colors.white.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(99),
                       ),
                     ),

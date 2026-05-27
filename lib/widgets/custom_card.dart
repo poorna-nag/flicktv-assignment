@@ -1,13 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-import '../core/constants/app_colors.dart';
-
 class CustomCard extends StatelessWidget {
   const CustomCard({
     super.key,
     required this.child,
-
     this.borderRadius = 26,
     this.padding = const EdgeInsets.all(18),
     this.margin,
@@ -50,7 +47,7 @@ class CustomCard extends StatelessWidget {
             // Glow + depth
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.20),
+                color: Colors.black.withOpacity(0.50),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
