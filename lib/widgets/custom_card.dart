@@ -33,26 +33,26 @@ class CustomCard extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.white.withOpacity(0.18),
-                Colors.white.withOpacity(0.06),
+                Colors.white.withValues(alpha: 0.18),
+                Colors.white.withValues(alpha: 0.06),
               ],
             ),
 
             // Soft border
             border: Border.all(
-              color: Colors.white.withOpacity(0.22),
+              color: Colors.white.withValues(alpha: 0.22),
               width: 1.2,
             ),
 
             // Glow + depth
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.50),
+                color: Colors.black.withValues(alpha: 0.50),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
               BoxShadow(
-                color: Colors.white.withOpacity(0.08),
+                color: Colors.white.withValues(alpha: 0.08),
                 blurRadius: 8,
                 offset: const Offset(-2, -2),
               ),
@@ -68,7 +68,7 @@ class CustomCard extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(borderRadius),
-        splashColor: Colors.white.withOpacity(0.08),
+        splashColor: Colors.white.withValues(alpha: 0.08),
         highlightColor: Colors.transparent,
         child: content,
       ),

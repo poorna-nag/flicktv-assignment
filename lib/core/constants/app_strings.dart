@@ -1,7 +1,7 @@
 class AppStrings {
   static const String appName = 'Poornima';
-  static const String brand = 'Flick Tv';
   static const String money = 'MONEY';
+  static const String brand = 'FlickTv';
   static const String singleTapPayments = 'Single tap payments';
   static const String singleTapDescription =
       'Enjoy seamless payments without the wait for OTPs';
@@ -15,5 +15,5 @@ class AppStrings {
   static const String claimGiftCard = 'Claim Gift Card';
   static const String claimGiftCardSubtitle =
       'Enter gift card details to claim your gift card';
-  static const String enjoySeamless = 'Enjoy seamless one tap payments';
+  static const String enjoySeamless = 'Enjoy seamless \n one tap payments';
 }

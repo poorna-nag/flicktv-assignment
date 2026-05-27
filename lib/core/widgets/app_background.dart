@@ -9,13 +9,19 @@ class AppBackground extends StatelessWidget {
     super.key,
     required this.child,
     this.showConfetti = false,
+    this.introProgress = 1.0,
   });
 
   final Widget child;
   final bool showConfetti;
+  final double introProgress;
 
   @override
   Widget build(BuildContext context) {
+    final double reveal = Curves.easeOut.transform(
+      (introProgress * 1.25).clamp(0.0, 1.0),
+    );
+
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
@@ -34,8 +40,8 @@ class AppBackground extends StatelessWidget {
             ),
           ),
         ),
-        const _GlowLayer(),
-        const _DotPattern(),
+        Opacity(opacity: reveal, child: const _GlowLayer()),
+        Opacity(opacity: reveal, child: const _DotPattern()),
         if (showConfetti) const Positioned.fill(child: _StaticConfetti()),
         child,
       ],
@@ -84,8 +90,8 @@ class _DotPattern extends StatelessWidget {
 class _DotPatternPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()..color = Colors.white.withValues(alpha: 0.08);
-    final double topSectionHeight = size.height * 0.18;
+    final Paint paint = Paint()..color = Colors.white.withValues(alpha: 0.09);
+    final double topSectionHeight = size.height * 0.32;
     const double gap = 15;
     const double dotSize = 4;
 
@@ -95,7 +101,7 @@ class _DotPatternPainter extends CustomPainter {
       for (double x = -gap; x < size.width + gap; x += gap) {
         final double dx = x + rowOffset;
         final double fade = (1 - (y / topSectionHeight)).clamp(0.0, 1.0);
-        paint.color = Colors.white.withValues(alpha: 0.06 * fade);
+        paint.color = Colors.white.withValues(alpha: 0.08 * fade);
         canvas.drawRRect(
           RRect.fromRectAndRadius(
             Rect.fromLTWH(dx, y, dotSize, dotSize),
@@ -130,23 +136,24 @@ class _StaticConfettiState extends State<_StaticConfetti>
       vsync: this,
       duration: const Duration(seconds: 10),
     );
-    _particles = List<_ConfettiParticle>.generate(28, (int index) {
+    _particles = List<_ConfettiParticle>.generate(30, (int index) {
       final double seed = index * 13.123;
       final double x = (math.sin(seed) * 0.5 + 0.5);
-      final double y = (math.cos(seed * 0.7) * 0.5 + 0.5) * 0.18;
+      final double y = (math.cos(seed * 0.7) * 0.5 + 0.5) * 0.1;
       return _ConfettiParticle(
         x: x,
         y: y,
         size: 5 + (index % 3) * 2,
-        speed: 0.08 + (index % 5) * 0.02,
+        speed: 0.55 + (index % 5) * 0.08,
         rotation: index * 0.3,
         spin: (index.isEven ? 1 : -1) * 0.8,
         color: <Color>[
           AppColors.pink,
           AppColors.blue,
+          AppColors.green,
           AppColors.yellow,
-          AppColors.accentSoft,
-        ][index % 4],
+          AppColors.error,
+        ][index % 5],
       );
     });
 
@@ -154,7 +161,7 @@ class _StaticConfettiState extends State<_StaticConfetti>
       if (!mounted) {
         return;
       }
-      Future<void>.delayed(const Duration(milliseconds: 900), () {
+      Future<void>.delayed(const Duration(milliseconds: 350), () {
         if (!mounted) {
           return;
         }
@@ -217,14 +224,22 @@ class _ConfettiPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (final _ConfettiParticle particle in particles) {
-      final double travel = ((progress * particle.speed) + particle.y) % 1.0;
+      final double travel = (particle.y + progress * particle.speed).clamp(
+        0.0,
+        1.12,
+      );
       final double dx = particle.x * size.width;
-      final double dy = travel * size.height * 0.55;
+      final double drift =
+          math.sin((progress * math.pi * 2) + particle.rotation) *
+          size.width *
+          0.02 *
+          particle.spin;
+      final double dy = travel * size.height;
       final double angle =
           particle.rotation + progress * particle.spin * math.pi * 2;
 
       canvas.save();
-      canvas.translate(dx, dy);
+      canvas.translate(dx + drift, dy);
       canvas.rotate(angle);
       final Paint paint = Paint()
         ..color = particle.color.withValues(alpha: 0.9);
