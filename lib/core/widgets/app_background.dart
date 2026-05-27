@@ -134,17 +134,17 @@ class _StaticConfettiState extends State<_StaticConfetti>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 10),
+      duration: const Duration(milliseconds: 6000),
     );
     _particles = List<_ConfettiParticle>.generate(30, (int index) {
       final double seed = index * 13.123;
       final double x = (math.sin(seed) * 0.5 + 0.5);
-      final double y = (math.cos(seed * 0.7) * 0.5 + 0.5) * 0.1;
+      final double y = (math.cos(seed * 0.9) * 0.5 + 0.5) * 0.03;
       return _ConfettiParticle(
         x: x,
         y: y,
         size: 5 + (index % 3) * 2,
-        speed: 0.55 + (index % 5) * 0.08,
+        speed: 1.15 + (index % 5) * 0.12,
         rotation: index * 0.3,
         spin: (index.isEven ? 1 : -1) * 0.8,
         color: <Color>[
@@ -161,11 +161,11 @@ class _StaticConfettiState extends State<_StaticConfetti>
       if (!mounted) {
         return;
       }
-      Future<void>.delayed(const Duration(milliseconds: 350), () {
+      Future<void>.delayed(const Duration(milliseconds: 1000), () {
         if (!mounted) {
           return;
         }
-        _controller.repeat();
+        _controller.forward(from: 0.0);
       });
     });
   }
@@ -224,10 +224,10 @@ class _ConfettiPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (final _ConfettiParticle particle in particles) {
-      final double travel = (particle.y + progress * particle.speed).clamp(
-        0.0,
-        1.12,
-      );
+      final double travel = particle.y + progress * particle.speed;
+      if (travel < 0.0 || travel > 1.18) {
+        continue;
+      }
       final double dx = particle.x * size.width;
       final double drift =
           math.sin((progress * math.pi * 2) + particle.rotation) *
@@ -237,12 +237,15 @@ class _ConfettiPainter extends CustomPainter {
       final double dy = travel * size.height;
       final double angle =
           particle.rotation + progress * particle.spin * math.pi * 2;
+      final double fade = travel < 0.95
+          ? 0.95
+          : ((1.18 - travel) / 0.23).clamp(0.0, 0.95);
 
       canvas.save();
       canvas.translate(dx + drift, dy);
       canvas.rotate(angle);
       final Paint paint = Paint()
-        ..color = particle.color.withValues(alpha: 0.9);
+        ..color = particle.color.withValues(alpha: fade);
       final RRect rect = RRect.fromRectAndRadius(
         Rect.fromCenter(
           center: Offset.zero,

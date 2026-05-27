@@ -98,9 +98,10 @@ class HomeScreenAnimations {
       _piecewiseTravel(controller.value, <_TimelinePoint>[
         _TimelinePoint(0.0, 0.0),
         _TimelinePoint(_t(0.2), 0.0),
-        _TimelinePoint(_t(1.2), 90.0, curve: Curves.easeInOutCubic),
-        _TimelinePoint(_t(1.6), 90.0),
-        _TimelinePoint(_t(2.6), -22.0, curve: Curves.easeInOutCubic),
+        _TimelinePoint(_t(1.15), 90.0, curve: Curves.easeInOutCubic),
+        _TimelinePoint(_t(1.8), -48.0, curve: Curves.easeInOutCubic),
+        _TimelinePoint(_t(2.4), -10.0, curve: Curves.easeInOutCubic),
+        _TimelinePoint(_t(3.2), -22.0, curve: Curves.easeInOutCubic),
         _TimelinePoint(_t(5.4), -22.0),
       ]);
   double get walletWobbleRotation =>
