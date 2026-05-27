@@ -53,10 +53,10 @@ class _GlowLayer extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: RadialGradient(
             center: const Alignment(0.0, -0.3),
-            radius: 1.25,
+            radius: 2,
             colors: <Color>[
-              AppColors.backgroundGlow.withOpacity(0.34),
-              AppColors.backgroundGlow.withOpacity(0.12),
+              AppColors.backgroundGlow.withValues(alpha: 0.34),
+              AppColors.backgroundGlow.withValues(alpha: 0.12),
               Colors.transparent,
             ],
             stops: const <double>[0.0, 0.48, 1.0],
@@ -84,7 +84,7 @@ class _DotPattern extends StatelessWidget {
 class _DotPatternPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()..color = Colors.white.withOpacity(0.08);
+    final Paint paint = Paint()..color = Colors.white.withValues(alpha: 0.08);
     final double topSectionHeight = size.height * 0.18;
     const double gap = 15;
     const double dotSize = 4;
@@ -95,7 +95,7 @@ class _DotPatternPainter extends CustomPainter {
       for (double x = -gap; x < size.width + gap; x += gap) {
         final double dx = x + rowOffset;
         final double fade = (1 - (y / topSectionHeight)).clamp(0.0, 1.0);
-        paint.color = Colors.white.withOpacity(0.06 * fade);
+        paint.color = Colors.white.withValues(alpha: 0.06 * fade);
         canvas.drawRRect(
           RRect.fromRectAndRadius(
             Rect.fromLTWH(dx, y, dotSize, dotSize),
@@ -129,7 +129,7 @@ class _StaticConfettiState extends State<_StaticConfetti>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 10),
-    )..repeat();
+    );
     _particles = List<_ConfettiParticle>.generate(28, (int index) {
       final double seed = index * 13.123;
       final double x = (math.sin(seed) * 0.5 + 0.5);
@@ -148,6 +148,18 @@ class _StaticConfettiState extends State<_StaticConfetti>
           AppColors.accentSoft,
         ][index % 4],
       );
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      Future<void>.delayed(const Duration(milliseconds: 900), () {
+        if (!mounted) {
+          return;
+        }
+        _controller.repeat();
+      });
     });
   }
 
@@ -197,10 +209,7 @@ class _ConfettiParticle {
 }
 
 class _ConfettiPainter extends CustomPainter {
-  const _ConfettiPainter({
-    required this.particles,
-    required this.progress,
-  });
+  const _ConfettiPainter({required this.particles, required this.progress});
 
   final List<_ConfettiParticle> particles;
   final double progress;
@@ -211,12 +220,14 @@ class _ConfettiPainter extends CustomPainter {
       final double travel = ((progress * particle.speed) + particle.y) % 1.0;
       final double dx = particle.x * size.width;
       final double dy = travel * size.height * 0.55;
-      final double angle = particle.rotation + progress * particle.spin * math.pi * 2;
+      final double angle =
+          particle.rotation + progress * particle.spin * math.pi * 2;
 
       canvas.save();
       canvas.translate(dx, dy);
       canvas.rotate(angle);
-      final Paint paint = Paint()..color = particle.color.withOpacity(0.9);
+      final Paint paint = Paint()
+        ..color = particle.color.withValues(alpha: 0.9);
       final RRect rect = RRect.fromRectAndRadius(
         Rect.fromCenter(
           center: Offset.zero,
