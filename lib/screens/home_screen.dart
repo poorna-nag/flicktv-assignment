@@ -1,3 +1,9 @@
+import 'package:flicktv_yourname/core/utils/feature_card.dart';
+import 'package:flicktv_yourname/core/widgets/add_money_button.dart';
+import 'package:flicktv_yourname/core/widgets/dark_panel.dart';
+import 'package:flicktv_yourname/core/widgets/gift_card_row.dart';
+import 'package:flicktv_yourname/core/widgets/money_word_mark.dart'
+    show MoneyWordmark;
 import 'package:flicktv_yourname/core/widgets/top_Icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -152,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             opacity: _animations.moneyOpacity,
                             scale: _animations.moneyScale,
                             offsetY: _animations.moneyLift,
-                            child: const _MoneyWordmark(),
+                            child: const MoneyWordmark(),
                           ),
                         ),
                         const SizedBox(height: 12),
@@ -161,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           index < features.length;
                           index++
                         ) ...<Widget>[
-                          _FeatureCard(
+                          FeatureCard(
                             title: features[index].title,
                             subtitle: features[index].subtitle,
                             opacity: _animations.cardOpacity(index),
@@ -174,13 +180,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         _reveal(
                           opacity: _animations.chromeOpacity,
                           scale: _animations.chromeScale,
-                          child: _AddMoneyButton(),
+                          child: AddMoneyButton(),
                         ),
                         const SizedBox(height: 12),
                         _reveal(
                           opacity: _animations.chromeOpacity,
                           scale: _animations.chromeScale,
-                          child: const _GiftCardRow(),
+                          child: const GiftCardRow(),
                         ),
                         const SizedBox(height: 20),
                         _reveal(
@@ -220,219 +226,7 @@ class _FeatureSpec {
   final String subtitle;
 }
 
-class _MoneyWordmark extends StatelessWidget {
-  const _MoneyWordmark();
 
-  @override
-  Widget build(BuildContext context) {
-    return const Text(
-      AppStrings.money,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        color: AppColors.textPrimary,
-        fontSize: 58,
-        fontWeight: FontWeight.w900,
-        height: 0.95,
-        letterSpacing: 2,
-      ),
-    );
-  }
-}
 
-class _FeatureCard extends StatelessWidget {
-  const _FeatureCard({
-    required this.title,
-    required this.subtitle,
-    required this.opacity,
-    required this.offsetY,
-  });
 
-  final String title;
-  final String subtitle;
-  final double opacity;
-  final double offsetY;
 
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: opacity.clamp(0.0, 1.0),
-      child: Transform.translate(
-        offset: Offset(0, offsetY),
-        child: _DarkPanel(
-          borderRadius: 24,
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1F1F1F),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Icon(
-                  Icons.phone_iphone_rounded,
-                  color: AppColors.gold,
-                  size: 27,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                        color: AppColors.textSecondary,
-                        fontSize: 13,
-                        height: 1.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _AddMoneyButton extends StatelessWidget {
-  const _AddMoneyButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 54,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.accentBright,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.18),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(4),
-          onTap: () {},
-          child: const Center(
-            child: Text(
-              AppStrings.addMoney,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 19,
-                fontWeight: FontWeight.w800,
-                letterSpacing: -0.2,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _GiftCardRow extends StatelessWidget {
-  const _GiftCardRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return _DarkPanel(
-      borderRadius: 24,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 46,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color(0xFF1F1F1F),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: const Icon(
-              Icons.card_giftcard_rounded,
-              color: AppColors.gold,
-            ),
-          ),
-          const SizedBox(width: 14),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  AppStrings.claimGiftCard,
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  AppStrings.claimGiftCardSubtitle,
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12,
-                    height: 1.35,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Icon(Icons.chevron_right_rounded, color: AppColors.textMuted),
-        ],
-      ),
-    );
-  }
-}
-
-class _DarkPanel extends StatelessWidget {
-  const _DarkPanel({
-    required this.child,
-    this.padding = const EdgeInsets.all(18),
-    this.borderRadius = 24,
-  });
-
-  final Widget child;
-  final EdgeInsetsGeometry padding;
-  final double borderRadius;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
-      decoration: BoxDecoration(
-        color: const Color(0xFF2A2A2A),
-        borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.24),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: child,
-    );
-  }
-}
