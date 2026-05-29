@@ -6,12 +6,13 @@ import 'package:poornima/core/widgets/top_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../core/constants/app_colors.dart';
-import '../core/constants/app_dimensions.dart';
-import '../core/constants/app_strings.dart';
-import '../core/utils/home_animations.dart';
-import '../core/widgets/app_background.dart';
-import '../core/widgets/app_tilted_logo.dart';
+import 'package:poornima/core/constants/app_colors.dart';
+import 'package:poornima/core/constants/app_dimensions.dart';
+import 'package:poornima/core/constants/app_strings.dart';
+import 'package:poornima/core/utils/home_animations.dart';
+import 'package:poornima/core/utils/responsive_helper.dart';
+import 'package:poornima/core/widgets/app_background.dart';
+import 'package:poornima/core/widgets/app_tilted_logo.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -85,24 +86,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     (_animations.centerY - 10.0))
                 .clamp(0.0, 1.0);
 
-        final double topPadding = screenHeight < 750
-            ? 36
-            : (screenHeight < 820 ? 48 : 60);
-        final double bottomPadding = screenHeight < 750
-            ? 15
-            : (screenHeight < 820 ? 25 : 45);
-        final double logoSize = screenHeight < 750
-            ? 95
-            : (screenHeight < 820 ? 110 : 130);
-        final double brandFontSize = screenHeight < 750
-            ? 18
-            : (screenHeight < 820 ? 21 : 24);
-        final double moneyFontSize = screenHeight < 750
-            ? 34
-            : (screenHeight < 820 ? 40 : 46);
-        final double enjoySeamlessFontSize = screenHeight < 750
-            ? 22
-            : (screenHeight < 820 ? 23 : 26);
+        final double topPadding = context.responsive(36, 48, 60);
+        final double bottomPadding = context.responsive(15, 25, 45);
+        final double logoSize = context.responsive(95, 110, 130);
+        final double brandFontSize = context.responsive(18, 21, 24);
+        final double moneyFontSize = context.responsive(34, 40, 46);
+        final double enjoySeamlessFontSize = context.responsive(22, 23, 26);
 
         return Scaffold(
           body: AppBackground(
@@ -193,11 +182,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: screenHeight < 750
-                              ? 4
-                              : (screenHeight < 820 ? 6 : 8),
-                        ),
+                        SizedBox(height: context.responsive(4, 6, 8)),
                         for (
                           int index = 0;
                           index < features.length;
@@ -211,37 +196,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             index: index,
                           ),
                           if (index != features.length - 1)
-                            SizedBox(
-                              height: screenHeight < 750
-                                  ? 4
-                                  : (screenHeight < 820 ? 5 : 6),
-                            ),
+                            SizedBox(height: context.responsive(4, 5, 6)),
                         ],
-                        SizedBox(
-                          height: screenHeight < 750
-                              ? 6
-                              : (screenHeight < 820 ? 8 : 10),
-                        ),
+                        SizedBox(height: context.responsive(6, 8, 10)),
                         _reveal(
                           opacity: _animations.chromeOpacity,
                           scale: _animations.chromeScale,
                           child: AddMoneyButton(),
                         ),
-                        SizedBox(
-                          height: screenHeight < 750
-                              ? 12
-                              : (screenHeight < 820 ? 15 : 18),
-                        ),
+                        SizedBox(height: context.responsive(12, 15, 18)),
                         _reveal(
                           opacity: _animations.chromeOpacity,
                           scale: _animations.chromeScale,
                           child: const GiftCardRow(),
                         ),
-                        SizedBox(
-                          height: screenHeight < 750
-                              ? 6
-                              : (screenHeight < 820 ? 8 : 12),
-                        ),
+                        SizedBox(height: context.responsive(6, 8, 12)),
                         _reveal(
                           opacity: _animations.chromeOpacity * 0.85,
                           scale: _animations.chromeScale,

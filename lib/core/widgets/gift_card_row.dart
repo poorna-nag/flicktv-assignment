@@ -2,17 +2,19 @@ import 'package:poornima/core/constants/app_colors.dart';
 import 'package:poornima/core/constants/app_strings.dart';
 import 'package:poornima/core/widgets/dark_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:poornima/core/utils/responsive_helper.dart';
 
 class GiftCardRow extends StatelessWidget {
   const GiftCardRow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double paddingVertical = screenHeight < 750 ? 4 : (screenHeight < 820 ? 5 : 6);
-    final double iconContainerSize = screenHeight < 750 ? 36 : (screenHeight < 820 ? 40 : 44);
-    final double titleFontSize = screenHeight < 750 ? 13 : (screenHeight < 820 ? 14.5 : 16);
-    final double subtitleFontSize = screenHeight < 750 ? 9.5 : (screenHeight < 820 ? 10.5 : 11.5);
+    final double paddingVertical = context.responsive(4, 5, 6);
+    final double iconContainerSize = context.responsive(36, 40, 44);
+    final double titleFontSize = context.responsive(13, 14.5, 16);
+    final double subtitleFontSize = context.responsive(9.5, 10.5, 11.5);
+    final double itemSpacing = context.screenHeight < 720 ? 10 : 14;
+    final double subtitleSpacing = context.screenHeight < 720 ? 2 : 4;
 
     return DarkPanel(
       borderRadius: 10,
@@ -31,7 +33,7 @@ class GiftCardRow extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: screenHeight < 720 ? 10 : 14),
+          SizedBox(width: itemSpacing),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +46,7 @@ class GiftCardRow extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                SizedBox(height: screenHeight < 720 ? 2 : 4),
+                SizedBox(height: subtitleSpacing),
                 Text(
                   AppStrings.claimGiftCardSubtitle,
                   style: TextStyle(
