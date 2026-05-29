@@ -14,3 +14,4 @@ A polished single-screen Flutter application featuring smooth, sequential intro 
 - **Package Name (Android & iOS)**: `flicktv.poornima`
 - **Application Name**: Poornima
 - Built using vanilla Flutter with custom animations and custom-painted UI components.
+- App images are generated using Gemini.
