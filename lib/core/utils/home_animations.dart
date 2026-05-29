@@ -7,7 +7,7 @@ class HomeScreenAnimations {
   HomeScreenAnimations(TickerProvider vsync)
     : controller = AnimationController(
         vsync: vsync,
-        duration: const Duration(milliseconds: 7000),
+        duration: const Duration(milliseconds: 8000),
       ),
       bobController = AnimationController(
         vsync: vsync,
@@ -17,7 +17,7 @@ class HomeScreenAnimations {
   final AnimationController controller;
   final AnimationController bobController;
 
-  static const double _totalSeconds = 7.0;
+  static const double _totalSeconds = 8.0;
   double centerY = 176.0;
   double get littleUpY => (centerY - 85.0).clamp(110.0, 500.0);
 
@@ -102,7 +102,6 @@ class HomeScreenAnimations {
     if (controller.value <= _t(0.4)) {
       return centerY - 100.0;
     } else if (controller.value <= _t(0.8)) {
-      // Wallet Lifts Slightly down: from centerY - 100.0 to centerY - 80.0
       final double progress = (controller.value - _t(0.4)) / (_t(0.8) - _t(0.4));
       return ui.lerpDouble(
         centerY - 100.0,
@@ -110,30 +109,25 @@ class HomeScreenAnimations {
         Curves.easeOut.transform(progress),
       )!;
     } else if (controller.value <= _t(1.6)) {
-      // Wallet Drops to Center: from centerY - 80.0 to centerY
       final double progress = (controller.value - _t(0.8)) / (_t(1.6) - _t(0.8));
       return ui.lerpDouble(
         centerY - 80.0,
         centerY,
         Curves.easeOutCubic.transform(progress),
       )!;
-    } else if (controller.value <= _t(2.2)) {
-      // Blaster blast & wait/pause
+    } else if (controller.value <= _t(3.2)) {
       return centerY;
-    } else if (controller.value <= _t(2.8)) {
-      // Wallet Lifts Slightly up: from centerY to centerY - 30.0
-      final double progress = (controller.value - _t(2.2)) / (_t(2.8) - _t(2.2));
+    } else if (controller.value <= _t(3.8)) {
+      final double progress = (controller.value - _t(3.2)) / (_t(3.8) - _t(3.2));
       return ui.lerpDouble(
         centerY,
         centerY - 30.0,
         Curves.easeInOutCubic.transform(progress),
       )!;
-    } else if (controller.value <= _t(3.8)) {
-      // pause/reveal brand name + money
-      return centerY - 30.0;
     } else if (controller.value <= _t(4.8)) {
-      // Entire Group Moves Up: from centerY - 30.0 to 10.0
-      final double progress = (controller.value - _t(3.8)) / (_t(4.8) - _t(3.8));
+      return centerY - 30.0;
+    } else if (controller.value <= _t(5.8)) {
+      final double progress = (controller.value - _t(4.8)) / (_t(5.8) - _t(4.8));
       return ui.lerpDouble(
         centerY - 30.0,
         10.0,
@@ -147,53 +141,53 @@ class HomeScreenAnimations {
       math.sin(bobController.value * math.pi * 2) *
       _piecewiseTravel(controller.value, <_TimelinePoint>[
         _TimelinePoint(_t(0.0), 0.0),
-        _TimelinePoint(_t(4.8), 0.0),
-        _TimelinePoint(_t(5.6), 0.03, curve: Curves.easeOut),
+        _TimelinePoint(_t(5.8), 0.0),
+        _TimelinePoint(_t(6.6), 0.03, curve: Curves.easeOut),
       ]);
   double get walletBobOffset =>
       math.sin(bobController.value * math.pi * 2) *
       _piecewiseTravel(controller.value, <_TimelinePoint>[
         _TimelinePoint(_t(0.0), 0.0),
-        _TimelinePoint(_t(4.8), 0.0),
-        _TimelinePoint(_t(5.6), 2.0, curve: Curves.easeOut),
+        _TimelinePoint(_t(5.8), 0.0),
+        _TimelinePoint(_t(6.6), 2.0, curve: Curves.easeOut),
       ]);
 
-  double get wordmarkOpacity => fade(_t(2.8), _t(3.4));
-  double get wordmarkLift => (1 - _intervalValue(_t(2.8), _t(3.4))) * 20;
+  double get wordmarkOpacity => fade(_t(3.8), _t(4.4));
+  double get wordmarkLift => (1 - _intervalValue(_t(3.8), _t(4.4))) * 20;
 
-  double get moneyOpacity => fade(_t(3.2), _t(3.8));
-  double get moneyLift => (1 - _intervalValue(_t(3.2), _t(3.8))) * 20;
+  double get moneyOpacity => fade(_t(4.2), _t(4.8));
+  double get moneyLift => (1 - _intervalValue(_t(4.2), _t(4.8))) * 20;
   double get moneyScale => scale(
-    _t(3.2),
-    _t(3.8),
+    _t(4.2),
+    _t(4.8),
     begin: 0.85,
     finish: 1.0,
     curve: Curves.easeOutBack,
   );
 
   double cardOpacity(int index) {
-    final double start = 4.8 + (index * 0.2);
+    final double start = 5.8 + (index * 0.2);
     return fade(_t(start), _t(start + 0.6));
   }
 
   double cardLift(int index) {
-    final double start = 4.8 + (index * 0.2);
+    final double start = 5.8 + (index * 0.2);
     return (1 - _intervalValue(_t(start), _t(start + 0.6), curve: Curves.easeOutBack)) * 60;
   }
 
-  double get settingsOpacity => fade(_t(5.6), _t(6.6));
+  double get settingsOpacity => fade(_t(6.6), _t(7.6));
   double get settingsScale => scale(
-    _t(5.6),
     _t(6.6),
+    _t(7.6),
     begin: 0.92,
     finish: 1.0,
     curve: Curves.easeOutBack,
   );
 
-  double get chromeOpacity => fade(_t(5.6), _t(6.6));
+  double get chromeOpacity => fade(_t(6.6), _t(7.6));
   double get chromeScale => scale(
-    _t(5.6),
     _t(6.6),
+    _t(7.6),
     begin: 0.92,
     finish: 1.0,
     curve: Curves.easeOutBack,

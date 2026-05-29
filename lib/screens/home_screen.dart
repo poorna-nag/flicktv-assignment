@@ -79,9 +79,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ]),
       builder: (BuildContext context, Widget? _) {
         final double screenHeight = MediaQuery.of(context).size.height;
-        // Calculate centerY dynamically so the wallet column is vertically centered on any device
-        // back button top padding (36) + row height (54) = 90. Column height is ~224. Half column is 112.
-        // target centerY pushes layout down: screenHeight/2 - 90 - 112 = screenHeight/2 - 202.
         _animations.centerY = (screenHeight / 2 - 202).clamp(110.0, 500.0);
         final double travelProgress =
             ((_animations.centerY - _animations.walletTravelY) /
@@ -104,12 +101,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ? 34
             : (screenHeight < 820 ? 40 : 46);
         final double enjoySeamlessFontSize = screenHeight < 750
-            ? 28
-            : (screenHeight < 820 ? 26 : 32);
+            ? 22
+            : (screenHeight < 820 ? 23 : 26);
 
         return Scaffold(
           body: AppBackground(
-            showConfetti: _animations.controller.value >= _animations.confettiTriggerProgress,
+            showConfetti:
+                _animations.controller.value >=
+                _animations.confettiTriggerProgress,
             introProgress: _animations.backgroundReveal,
             walletTravelProgress: travelProgress,
             child: SafeArea(
@@ -230,8 +229,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                         SizedBox(
                           height: screenHeight < 750
-                              ? 6
-                              : (screenHeight < 820 ? 8 : 10),
+                              ? 12
+                              : (screenHeight < 820 ? 15 : 18),
                         ),
                         _reveal(
                           opacity: _animations.chromeOpacity,

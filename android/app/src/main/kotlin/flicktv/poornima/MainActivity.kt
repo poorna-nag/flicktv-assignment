@@ -1,4 +1,4 @@
-package flicktv.yourname
+package flicktv.poornima
 
 import io.flutter.embedding.android.FlutterActivity
 
