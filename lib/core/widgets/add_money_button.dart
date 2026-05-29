@@ -1,5 +1,5 @@
-import 'package:flicktv_yourname/core/constants/app_colors.dart';
-import 'package:flicktv_yourname/core/constants/app_strings.dart';
+import 'package:poornima/core/constants/app_colors.dart';
+import 'package:poornima/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class AddMoneyButton extends StatelessWidget {
@@ -7,8 +7,12 @@ class AddMoneyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double buttonHeight = screenHeight < 750 ? 44 : (screenHeight < 820 ? 48 : 52);
+    final double fontSize = screenHeight < 750 ? 15 : (screenHeight < 820 ? 17 : 18.5);
+
     return Container(
-      height: 54,
+      height: buttonHeight,
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.accentBright,
@@ -26,12 +30,12 @@ class AddMoneyButton extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(4),
           onTap: () {},
-          child: const Center(
+          child: Center(
             child: Text(
               AppStrings.addMoney,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 19,
+                fontSize: fontSize,
                 fontWeight: FontWeight.w800,
                 letterSpacing: -0.2,
               ),

@@ -27,7 +27,6 @@ class TopIconButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
 
-                  // Glass effect
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -37,13 +36,11 @@ class TopIconButton extends StatelessWidget {
                     ],
                   ),
 
-                  // Border glow
                   border: Border.all(
                     color: Colors.white.withValues(alpha: 0.22),
                     width: 1.2,
                   ),
 
-                  // Shadow depth
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.22),

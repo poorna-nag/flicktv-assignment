@@ -28,7 +28,6 @@ class CustomCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
 
-            // Glass background
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -38,13 +37,11 @@ class CustomCard extends StatelessWidget {
               ],
             ),
 
-            // Soft border
             border: Border.all(
               color: Colors.white.withValues(alpha: 0.22),
               width: 1.2,
             ),
 
-            // Glow + depth
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.50),

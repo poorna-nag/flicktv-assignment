@@ -1,4 +1,4 @@
-name: flicktv_yourname
+name: poornima
 description: "Production-style single screen Flutter UI inspired by the provided reference video."
 publish_to: 'none'
 version: 0.1.0+1
@@ -19,3 +19,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/logo.png
+    - assets/images/tap.png
+    - assets/images/wifi.png
+    - assets/images/money.png

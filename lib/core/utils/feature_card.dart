@@ -1,5 +1,5 @@
-import 'package:flicktv_yourname/core/constants/app_colors.dart';
-import 'package:flicktv_yourname/core/widgets/dark_panel.dart';
+import 'package:poornima/core/constants/app_colors.dart';
+import 'package:poornima/core/widgets/dark_panel.dart';
 import 'package:flutter/material.dart';
 
 class FeatureCard extends StatelessWidget {
@@ -21,143 +21,64 @@ class FeatureCard extends StatelessWidget {
   Widget _buildIcon() {
     switch (index) {
       case 0:
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            const Icon(
-              Icons.phone_iphone_rounded,
-              color: Colors.white38,
-              size: 26,
-            ),
-            Positioned(
-              right: 6,
-              bottom: 6,
-              child: Container(
-                padding: const EdgeInsets.all(2),
-                decoration: const BoxDecoration(
-                  color: AppColors.accentBright,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.touch_app_rounded,
-                  color: Colors.white,
-                  size: 14,
-                ),
-              ),
-            ),
-          ],
-        );
+        return Image.asset('assets/images/tap.png', fit: BoxFit.cover);
       case 1:
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            const Icon(
-              Icons.phone_iphone_rounded,
-              color: Colors.white38,
-              size: 26,
-            ),
-            Positioned(
-              right: 6,
-              bottom: 6,
-              child: Container(
-                padding: const EdgeInsets.all(2),
-                decoration: const BoxDecoration(
-                  color: Colors.green,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.check_rounded,
-                  color: Colors.white,
-                  size: 12,
-                ),
-              ),
-            ),
-          ],
-        );
+        return Image.asset('assets/images/wifi.png', fit: BoxFit.cover);
       case 2:
       default:
-        return Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            const Icon(
-              Icons.phone_iphone_rounded,
-              color: Colors.white38,
-              size: 26,
-            ),
-            Positioned(
-              right: 4,
-              bottom: 4,
-              child: Transform.rotate(
-                angle: -0.15,
-                child: Container(
-                  width: 18,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: AppColors.gold,
-                    borderRadius: BorderRadius.circular(2),
-                    boxShadow: const <BoxShadow>[
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 1,
-                        offset: Offset(0, 1),
-                      ),
-                    ],
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.credit_card_rounded,
-                      color: Colors.black,
-                      size: 9,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
+        return Image.asset('assets/images/money.png', fit: BoxFit.cover);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double cardPadding = screenHeight < 750 ? 10 : (screenHeight < 820 ? 12 : 14);
+    final double iconContainerSize = screenHeight < 750 ? 40 : (screenHeight < 820 ? 45 : 50);
+    final double titleFontSize = screenHeight < 750 ? 13 : (screenHeight < 820 ? 14.5 : 16);
+    final double subtitleFontSize = screenHeight < 750 ? 10.5 : (screenHeight < 820 ? 11.5 : 12.5);
+
     return Opacity(
       opacity: opacity.clamp(0.0, 1.0),
       child: Transform.translate(
         offset: Offset(0, offsetY),
         child: DarkPanel(
-          borderRadius: 24,
-          padding: const EdgeInsets.all(16),
+          borderRadius: screenHeight < 750 ? 18 : 24,
+          padding: EdgeInsets.all(cardPadding),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                width: 52,
-                height: 52,
+                width: iconContainerSize,
+                height: iconContainerSize,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1F1F1F),
-                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(screenHeight < 750 ? 12 : 16),
                 ),
-                child: _buildIcon(),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(screenHeight < 750 ? 12 : 16),
+                  child: _buildIcon(),
+                ),
               ),
-              const SizedBox(width: 14),
+              SizedBox(width: screenHeight < 720 ? 10 : 14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.textPrimary,
-                        fontSize: 16,
+                        fontSize: titleFontSize,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    SizedBox(height: screenHeight < 720 ? 3 : 5),
                     Text(
                       subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.textSecondary,
-                        fontSize: 13,
+                        fontSize: subtitleFontSize,
                         height: 1.4,
                       ),
                     ),

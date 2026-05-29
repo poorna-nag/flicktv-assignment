@@ -1,9 +1,8 @@
-import 'package:flicktv_yourname/core/utils/feature_card.dart';
-import 'package:flicktv_yourname/core/widgets/add_money_button.dart';
-import 'package:flicktv_yourname/core/widgets/gift_card_row.dart';
-import 'package:flicktv_yourname/core/widgets/money_word_mark.dart'
-    show MoneyWordmark;
-import 'package:flicktv_yourname/core/widgets/top_Icon_button.dart';
+import 'package:poornima/core/utils/feature_card.dart';
+import 'package:poornima/core/widgets/add_money_button.dart';
+import 'package:poornima/core/widgets/gift_card_row.dart';
+import 'package:poornima/core/widgets/money_word_mark.dart' show MoneyWordmark;
+import 'package:poornima/core/widgets/top_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -84,10 +83,33 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         // back button top padding (36) + row height (54) = 90. Column height is ~224. Half column is 112.
         // target centerY pushes layout down: screenHeight/2 - 90 - 112 = screenHeight/2 - 202.
         _animations.centerY = (screenHeight / 2 - 202).clamp(110.0, 500.0);
-        final double travelProgress = ((_animations.centerY - _animations.walletTravelY) / (_animations.centerY - 10.0)).clamp(0.0, 1.0);
+        final double travelProgress =
+            ((_animations.centerY - _animations.walletTravelY) /
+                    (_animations.centerY - 10.0))
+                .clamp(0.0, 1.0);
+
+        final double topPadding = screenHeight < 750
+            ? 36
+            : (screenHeight < 820 ? 48 : 60);
+        final double bottomPadding = screenHeight < 750
+            ? 15
+            : (screenHeight < 820 ? 25 : 45);
+        final double logoSize = screenHeight < 750
+            ? 95
+            : (screenHeight < 820 ? 110 : 130);
+        final double brandFontSize = screenHeight < 750
+            ? 18
+            : (screenHeight < 820 ? 21 : 24);
+        final double moneyFontSize = screenHeight < 750
+            ? 34
+            : (screenHeight < 820 ? 40 : 46);
+        final double enjoySeamlessFontSize = screenHeight < 750
+            ? 28
+            : (screenHeight < 820 ? 26 : 32);
+
         return Scaffold(
           body: AppBackground(
-            showConfetti: true,
+            showConfetti: _animations.controller.value >= _animations.confettiTriggerProgress,
             introProgress: _animations.backgroundReveal,
             walletTravelProgress: travelProgress,
             child: SafeArea(
@@ -96,12 +118,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: Stack(
                 children: <Widget>[
                   SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.fromLTRB(
                       AppDimensions.screenPadding,
-                      55,
+                      topPadding,
                       AppDimensions.screenPadding,
-                      120,
+                      bottomPadding,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -109,9 +131,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            TopIconButton(
-                              icon: Icons.arrow_back_ios_new,
-                              onTap: _closeScreen,
+                            _reveal(
+                              opacity: _animations.settingsOpacity,
+                              scale: _animations.settingsScale,
+                              child: TopIconButton(
+                                icon: Icons.arrow_back_ios_new,
+                                onTap: _closeScreen,
+                              ),
                             ),
                             _reveal(
                               opacity: _animations.settingsOpacity,
@@ -134,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     scale: _animations.walletScale,
                                     child: Opacity(
                                       opacity: _animations.walletOpacity,
-                                      child: const AppTiltedLogo(size: 136),
+                                      child: AppTiltedLogo(size: logoSize),
                                     ),
                                   ),
                                 ),
@@ -145,12 +171,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: _reveal(
                                 opacity: _animations.wordmarkOpacity,
                                 offsetY: _animations.wordmarkLift,
-                                child: const Text(
+                                child: Text(
                                   AppStrings.brand,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: AppColors.textPrimary,
-                                    fontSize: 26,
+                                    fontSize: brandFontSize,
                                     fontWeight: FontWeight.w800,
                                     letterSpacing: 0.5,
                                   ),
@@ -163,12 +189,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 opacity: _animations.moneyOpacity,
                                 scale: _animations.moneyScale,
                                 offsetY: _animations.moneyLift,
-                                child: const MoneyWordmark(),
+                                child: MoneyWordmark(fontSize: moneyFontSize),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(
+                          height: screenHeight < 750
+                              ? 4
+                              : (screenHeight < 820 ? 6 : 8),
+                        ),
                         for (
                           int index = 0;
                           index < features.length;
@@ -182,31 +212,47 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             index: index,
                           ),
                           if (index != features.length - 1)
-                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: screenHeight < 750
+                                  ? 4
+                                  : (screenHeight < 820 ? 5 : 6),
+                            ),
                         ],
-                        const SizedBox(height: 12),
+                        SizedBox(
+                          height: screenHeight < 750
+                              ? 6
+                              : (screenHeight < 820 ? 8 : 10),
+                        ),
                         _reveal(
                           opacity: _animations.chromeOpacity,
                           scale: _animations.chromeScale,
                           child: AddMoneyButton(),
                         ),
-                        const SizedBox(height: 14),
+                        SizedBox(
+                          height: screenHeight < 750
+                              ? 6
+                              : (screenHeight < 820 ? 8 : 10),
+                        ),
                         _reveal(
                           opacity: _animations.chromeOpacity,
                           scale: _animations.chromeScale,
                           child: const GiftCardRow(),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(
+                          height: screenHeight < 750
+                              ? 6
+                              : (screenHeight < 820 ? 8 : 12),
+                        ),
                         _reveal(
                           opacity: _animations.chromeOpacity * 0.85,
                           scale: _animations.chromeScale,
-                          child: const IgnorePointer(
+                          child: IgnorePointer(
                             child: Text(
                               AppStrings.enjoySeamless,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white12,
-                                fontSize: 34,
+                                fontSize: enjoySeamlessFontSize,
                                 fontWeight: FontWeight.w900,
                                 height: 0.9,
                                 letterSpacing: 2,

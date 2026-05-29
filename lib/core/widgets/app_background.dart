@@ -160,7 +160,7 @@ class _StaticConfettiState extends State<_StaticConfetti>
         originY: originY,
         speedX: speedX,
         speedY: speedY,
-        size: 5 + (index % 3) * 2,
+        size: 8 + (index % 3) * 2,
         rotation: index * 0.3,
         spin: (index.isEven ? 1 : -1) * 0.8,
         color: <Color>[
@@ -177,12 +177,7 @@ class _StaticConfettiState extends State<_StaticConfetti>
       if (!mounted) {
         return;
       }
-      Future<void>.delayed(const Duration(milliseconds: 2500), () {
-        if (!mounted) {
-          return;
-        }
-        _controller.forward(from: 0.0);
-      });
+      _controller.forward(from: 0.0);
     });
   }
 
