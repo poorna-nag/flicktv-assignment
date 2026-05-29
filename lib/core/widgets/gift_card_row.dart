@@ -9,22 +9,11 @@ class GiftCardRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DarkPanel(
-      borderRadius: 24,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+      borderRadius: 10,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       child: Row(
         children: <Widget>[
-          Container(
-            width: 46,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color(0xFF1F1F1F),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: const Icon(
-              Icons.card_giftcard_rounded,
-              color: AppColors.gold,
-            ),
-          ),
+          const _GiftCardIcon(),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -52,6 +41,129 @@ class GiftCardRow extends StatelessWidget {
           ),
           const Icon(Icons.chevron_right_rounded, color: AppColors.textMuted),
         ],
+      ),
+    );
+  }
+}
+
+class _GiftCardIcon extends StatelessWidget {
+  const _GiftCardIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        color: const Color(0xFF634604),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Center(
+        child: SizedBox(
+          width: 38,
+          height: 38,
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: <Widget>[
+              // Green Card behind
+              Positioned(
+                bottom: 5,
+                left: 3,
+                child: Transform.rotate(
+                  angle: 0.12,
+                  child: Container(
+                    width: 25,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2B7D18),
+                      borderRadius: BorderRadius.circular(2.5),
+                      boxShadow: const <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 1,
+                          offset: Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: 4,
+                        margin: const EdgeInsets.only(right: 3),
+                        color: Colors.white24,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Gold Card in front
+              Positioned(
+                top: 5,
+                right: 1,
+                child: Transform.rotate(
+                  angle: -0.22,
+                  child: Container(
+                    width: 28,
+                    height: 17,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: <Color>[
+                          Color(0xFFFFF2C2),
+                          Color(0xFFE5B55F),
+                          Color(0xFFB58028),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(3),
+                      boxShadow: const <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.black38,
+                          blurRadius: 2,
+                          offset: Offset(0, 1.5),
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        // Ribbon line vertical
+                        Positioned(
+                          left: 8,
+                          top: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: 2.2,
+                            color: const Color(0xFF503503),
+                          ),
+                        ),
+                        // Ribbon line horizontal
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          top: 7,
+                          child: Container(
+                            height: 2.2,
+                            color: const Color(0xFF503503),
+                          ),
+                        ),
+                        // The Bow
+                        const Center(
+                          child: Icon(
+                            Icons.filter_vintage_rounded,
+                            size: 10,
+                            color: Color(0xFF503503),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

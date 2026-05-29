@@ -3,7 +3,7 @@ import 'package:flicktv_yourname/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class MoneyWordmark extends StatelessWidget {
-  const MoneyWordmark();
+  const MoneyWordmark({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +12,10 @@ class MoneyWordmark extends StatelessWidget {
       textAlign: TextAlign.center,
       style: TextStyle(
         color: AppColors.textPrimary,
-        fontSize: 58,
+        fontSize: 48,
         fontWeight: FontWeight.w900,
         height: 0.95,
-        letterSpacing: 2,
+        letterSpacing: 4,
       ),
     );
   }

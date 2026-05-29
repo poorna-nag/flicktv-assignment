@@ -1,7 +1,7 @@
 class AppStrings {
   static const String appName = 'Poornima';
   static const String money = 'MONEY';
-  static const String brand = 'FlickTv';
+  static const String brand = 'blinkit';
   static const String singleTapPayments = 'Single tap payments';
   static const String singleTapDescription =
       'Enjoy seamless payments without the wait for OTPs';

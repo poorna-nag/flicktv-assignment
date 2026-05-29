@@ -9,12 +9,114 @@ class FeatureCard extends StatelessWidget {
     required this.subtitle,
     required this.opacity,
     required this.offsetY,
+    required this.index,
   });
 
   final String title;
   final String subtitle;
   final double opacity;
   final double offsetY;
+  final int index;
+
+  Widget _buildIcon() {
+    switch (index) {
+      case 0:
+        return Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            const Icon(
+              Icons.phone_iphone_rounded,
+              color: Colors.white38,
+              size: 26,
+            ),
+            Positioned(
+              right: 6,
+              bottom: 6,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  color: AppColors.accentBright,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.touch_app_rounded,
+                  color: Colors.white,
+                  size: 14,
+                ),
+              ),
+            ),
+          ],
+        );
+      case 1:
+        return Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            const Icon(
+              Icons.phone_iphone_rounded,
+              color: Colors.white38,
+              size: 26,
+            ),
+            Positioned(
+              right: 6,
+              bottom: 6,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.check_rounded,
+                  color: Colors.white,
+                  size: 12,
+                ),
+              ),
+            ),
+          ],
+        );
+      case 2:
+      default:
+        return Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            const Icon(
+              Icons.phone_iphone_rounded,
+              color: Colors.white38,
+              size: 26,
+            ),
+            Positioned(
+              right: 4,
+              bottom: 4,
+              child: Transform.rotate(
+                angle: -0.15,
+                child: Container(
+                  width: 18,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    color: AppColors.gold,
+                    borderRadius: BorderRadius.circular(2),
+                    boxShadow: const <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 1,
+                        offset: Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.credit_card_rounded,
+                      color: Colors.black,
+                      size: 9,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +137,7 @@ class FeatureCard extends StatelessWidget {
                   color: const Color(0xFF1F1F1F),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Icon(
-                  Icons.phone_iphone_rounded,
-                  color: AppColors.gold,
-                  size: 27,
-                ),
+                child: _buildIcon(),
               ),
               const SizedBox(width: 14),
               Expanded(

@@ -21,7 +21,7 @@ class TopIconButton extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(100),
               onTap: onTap,
-              splashColor: Colors.white.withOpacity(0.08),
+              splashColor: Colors.white.withValues(alpha: 0.08),
               highlightColor: Colors.transparent,
               child: Container(
                 decoration: BoxDecoration(
@@ -32,26 +32,26 @@ class TopIconButton extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Colors.white.withOpacity(0.18),
-                      Colors.white.withOpacity(0.05),
+                      Colors.white.withValues(alpha: 0.18),
+                      Colors.white.withValues(alpha: 0.05),
                     ],
                   ),
 
                   // Border glow
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.22),
+                    color: Colors.white.withValues(alpha: 0.22),
                     width: 1.2,
                   ),
 
                   // Shadow depth
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.22),
+                      color: Colors.black.withValues(alpha: 0.22),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.05),
+                      color: Colors.white.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(-2, -2),
                     ),

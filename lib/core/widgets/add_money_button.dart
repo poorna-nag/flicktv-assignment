@@ -3,7 +3,7 @@ import 'package:flicktv_yourname/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class AddMoneyButton extends StatelessWidget {
-  const AddMoneyButton();
+  const AddMoneyButton({super.key});
 
   @override
   Widget build(BuildContext context) {
