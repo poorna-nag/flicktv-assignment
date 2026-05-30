@@ -19,4 +19,3 @@ A screen recording demonstrating the app's interactive transitions and UI flow i
 - **Package Name (Application ID)**: `flicktv.poornima`
 - **Application Name**: Poornima
 - Built using Flutter with custom animations and custom-painted UI components.
-- App images are generated using Gemini.
