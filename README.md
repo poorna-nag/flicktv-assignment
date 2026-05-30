@@ -9,9 +9,14 @@ A polished single-screen Flutter application featuring smooth, sequential intro 
 3. Start the application with `flutter run`.
 4. Build a release APK with `flutter build apk --release`.
 
+## Demo
+
+A screen recording demonstrating the app's interactive transitions and UI flow is available:
+- **Demo File Path**: [demo/app-demo.mp4](file:///Users/poornanag/flutter%20projects/poornima_flutter_assignment/demo/app-demo.mp4)
+
 ## Project Details
 
-- **Package Name (Android & iOS)**: `flicktv.poornima`
+- **Package Name (Application ID)**: `flicktv.poornima`
 - **Application Name**: Poornima
-- Built using vanilla Flutter with custom animations and custom-painted UI components.
+- Built using Flutter with custom animations and custom-painted UI components.
 - App images are generated using Gemini.
